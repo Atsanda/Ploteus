@@ -6,6 +6,7 @@
 #include <QSplashScreen>
 #include <iostream>
 #include <QPixmap>
+#include "qcustomplot.h"
 
 namespace Ui {
 class PloteusWindow;
@@ -18,6 +19,14 @@ class PloteusWindow : public QMainWindow
 public:
     explicit PloteusWindow(QWidget *parent = 0);
     ~PloteusWindow();
+
+    void setupPlot();
+
+  private slots:
+    void horzScrollBarChanged(int value);
+    void vertScrollBarChanged(int value);
+    void xAxisChanged(QCPRange range);
+    void yAxisChanged(QCPRange range);
 
 private:
     Ui::PloteusWindow *ui;

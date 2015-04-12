@@ -1,12 +1,13 @@
 #include "ploteuswindow.h"
 #include <QApplication>
+#include "qcustomplot.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     PloteusWindow w;
 
-    QSplashScreen splash(QPixmap("splash.jpg"));
+    QSplashScreen splash(QPixmap(":/splash.jpg"));
     splash.show();
     loadModules(&splash);
     splash.finish(&w);
