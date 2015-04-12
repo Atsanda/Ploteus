@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,8 +14,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        ploteuswindow.cpp
+        ploteuswindow.cpp \
+    qcustomplot.cpp
 
-HEADERS  += ploteuswindow.h
+HEADERS  += ploteuswindow.h \
+    qcustomplot.h
 
 FORMS    += ploteuswindow.ui
