@@ -2,6 +2,7 @@
 #include "ui_welcome_page.h"
 #include "ui_table_chs_pg.h"
 #include <QApplication>
+#include "qcustomplot.h"
 
 int main(int argc, char *argv[])
 {
@@ -13,6 +14,7 @@ int main(int argc, char *argv[])
     w.setAutoFillBackground(true);
     w.setPalette(Pal);
 
+<<<<<<< HEAD
     QWidget Welcm_pg;
     Ui::Welcome_Page ui_1;
     ui_1.setupUi(&Welcm_pg);
@@ -26,6 +28,9 @@ int main(int argc, char *argv[])
 
 
     QSplashScreen splash(QPixmap(":/window/splash.jpg"));
+=======
+    QSplashScreen splash(QPixmap(":/splash.jpg"));
+>>>>>>> 56688ec91d93762841a103273c3f8fe27f69c582
     splash.show();
     loadModules(&splash);
     splash.finish(&w);
