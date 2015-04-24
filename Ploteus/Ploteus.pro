@@ -17,4 +17,11 @@ SOURCES += main.cpp\
 
 HEADERS  += ploteuswindow.h
 
-FORMS    += ploteuswindow.ui
+FORMS    += \
+    welcome_page.ui \
+    table_chs_pg.ui
+
+RESOURCES += \
+    resources.qrc
+
+DISTFILES +=

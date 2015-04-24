@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/wel_page">
+        <file>Wel_pg1.png</file>
+    </qresource>
+    <qresource prefix="/window">
+        <file>icon.png</file>
+        <file>splash.jpg</file>
+        <file>Button.png</file>
+    </qresource>
+</RCC>

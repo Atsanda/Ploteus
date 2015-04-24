@@ -6,22 +6,27 @@
 #include <QSplashScreen>
 #include <iostream>
 #include <QPixmap>
+#include <QPalette>
 
-namespace Ui {
-class PloteusWindow;
-}
+/*namespace Ui {
+class welcome_page;
+}*/
 
 class PloteusWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit PloteusWindow(QWidget *parent = 0);
+    explicit PloteusWindow(QWidget& tbl_page, QWidget *parent = 0);
     ~PloteusWindow();
 
 private:
-    Ui::PloteusWindow *ui;
+    //Ui::PloteusWindow *ui;
+    QWidget &tbl_shc_pg;
+public slots:
+    turn_strtpage_to_tbl_chs_pg();
 };
+
 
 void loadModules(QSplashScreen* psplash);
 
