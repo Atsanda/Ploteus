@@ -7,30 +7,26 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
     QWidget Tabl_chs_pg;
     PloteusWindow w(Tabl_chs_pg);
+
     QPalette Pal;
     Pal.setColor(QPalette::Background, Qt::white);
     w.setAutoFillBackground(true);
     w.setPalette(Pal);
 
-<<<<<<< HEAD
     QWidget Welcm_pg;
     Ui::Welcome_Page ui_1;
     ui_1.setupUi(&Welcm_pg);
     w.setCentralWidget(&Welcm_pg);
 
-
-
     Ui::Table_chs_pg ui_2;
     ui_2.setupUi(&Tabl_chs_pg);
     QObject::connect(ui_1.StartButton, SIGNAL(clicked()), &w, SLOT(turn_strtpage_to_tbl_chs_pg()) );
 
-
     QSplashScreen splash(QPixmap(":/window/splash.jpg"));
-=======
-    QSplashScreen splash(QPixmap(":/splash.jpg"));
->>>>>>> 56688ec91d93762841a103273c3f8fe27f69c582
+
     splash.show();
     loadModules(&splash);
     splash.finish(&w);

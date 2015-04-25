@@ -5,11 +5,11 @@ PloteusWindow::PloteusWindow(QWidget &tbl_page, QWidget *parent) :
     QMainWindow(parent), tbl_shc_pg(tbl_page)
     //ui(new Ui::PloteusWindow)
 {
-<<<<<<< HEAD
+
     //ui->setupUi(this);
     setWindowIcon(QIcon(":/window/icon.png"));
-=======
-    ui->setupUi(this);
+
+    /*ui->setupUi(this);
     setupPlot();
 
     ui->horizontalScrollBar->setRange(-500, 500);
@@ -21,8 +21,8 @@ PloteusWindow::PloteusWindow(QWidget &tbl_page, QWidget *parent) :
     connect(ui->plot->yAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(yAxisChanged(QCPRange)));
 
     ui->plot->xAxis->setRange(0, 6, Qt::AlignCenter);
-    ui->plot->yAxis->setRange(0, 10, Qt::AlignCenter);
->>>>>>> 56688ec91d93762841a103273c3f8fe27f69c582
+    ui->plot->yAxis->setRange(0, 10, Qt::AlignCenter);*/
+
 }
 
 PloteusWindow::~PloteusWindow()
@@ -53,7 +53,7 @@ void loadModules(QSplashScreen* psplash)
     }
 }
 
-void PloteusWindow::setupPlot() {
+/*void PloteusWindow::setupPlot() {
     //here we shoul do setup of plot
 
 }
@@ -86,4 +86,4 @@ void PloteusWindow::yAxisChanged(QCPRange range)
 {
   ui->verticalScrollBar->setValue(qRound(-range.center()*100.0)); // adjust position of scroll bar slider
   ui->verticalScrollBar->setPageStep(qRound(range.size()*100.0)); // adjust size of scroll bar slider
-}
+}*/
