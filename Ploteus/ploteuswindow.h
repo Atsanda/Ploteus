@@ -10,28 +10,26 @@
 #include "qcustomplot.h"
 
 
-/*namespace Ui {
-class welcome_page;
-}*/
+namespace Ui {
+class Table_chs_pg;
+class Welcome_Page;
+}
 
 class PloteusWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit PloteusWindow(QWidget& tbl_page, QWidget *parent = 0);
+    explicit PloteusWindow(QWidget *parent = 0);
     ~PloteusWindow();
 
-    void setupPlot();
-
-  private slots:
-
-
 private:
-    QWidget &tbl_shc_pg;
-
+    QWidget *Tbl_chs_pg;
+    QWidget *Welcm_pg;
+    Ui::Table_chs_pg *ui_tbl;
+    Ui::Welcome_Page *ui_wel;
 public slots:
-    turn_strtpage_to_tbl_chs_pg();
+    void turn_strtpage_to_tbl_chs_pg();
 };
 
 
