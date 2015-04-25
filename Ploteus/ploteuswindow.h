@@ -7,6 +7,7 @@
 #include <iostream>
 #include <QPixmap>
 #include <QPalette>
+#include <QMessageBox>
 #include "qcustomplot.h"
 
 
@@ -30,6 +31,7 @@ private:
     Ui::Welcome_Page *ui_wel;
 public slots:
     void turn_strtpage_to_tbl_chs_pg();
+    void load_external_table();
 };
 
 

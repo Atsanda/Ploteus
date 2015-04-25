@@ -20,7 +20,9 @@ PloteusWindow::PloteusWindow(QWidget *parent) :
     this->setCentralWidget(Welcm_pg);
 
     ui_tbl->setupUi(Tbl_chs_pg);
+
     QObject::connect(ui_wel->StartButton, SIGNAL(clicked()), this, SLOT(turn_strtpage_to_tbl_chs_pg()) );
+    QObject::connect(ui_tbl->Add_tbl, SIGNAL(clicked()), this, SLOT(load_external_table()));
 
 
 }
@@ -36,6 +38,21 @@ PloteusWindow::~PloteusWindow()
 void PloteusWindow::turn_strtpage_to_tbl_chs_pg()
 {
     setCentralWidget(Tbl_chs_pg);
+}
+
+void PloteusWindow::load_external_table()
+{
+    QString str = QFileDialog::getOpenFileName(this,
+                                               QString::fromUtf8("Открыть файл"),
+                                               QDir::homePath(),
+                                               "Images (*.txt);;All files (*.*)");
+    if (str.isEmpty()){
+        QMessageBox::warning(0,
+                             "Warning",
+                             "Invalid filename\n"
+                             "Please try again",
+                             QMessageBox::Ok);
+    }
 }
 
 void loadModules(QSplashScreen* psplash)
