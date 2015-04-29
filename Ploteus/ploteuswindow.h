@@ -36,17 +36,9 @@ public slots:
     void turn_strtpage_to_tbl_chs_pg();
     void load_external_table();
     void create_table();
+    void add_row_to_table(int , int);
 };
 
-/*class MyTablewidget : public QTableWidget
-{
-    Q_OBJECT
-
-public:
-    explicit MyTablewidget(QWidget *parent = 0);
-    ~MyTablewidget();
-
-};*/
 
 
 void loadModules(QSplashScreen* psplash);

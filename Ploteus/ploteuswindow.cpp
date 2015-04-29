@@ -59,20 +59,24 @@ void PloteusWindow::load_external_table()
 
 void PloteusWindow::create_table()
 {
-    /*QStandardItemModel *model = new QStandardItemModel(5,2,this);
-    ui_create_table->tableView->setModel(model);
-
-    model->setHorizontalHeaderItem(0, new QStandardItem(QString("X axis")));
-    model->setHorizontalHeaderItem(1, new QStandardItem(QString("Y axis")));*/
-
-    ui_create_table->tableWidget->setRowCount(5);
+    ui_create_table->tableWidget->setRowCount(10);
     ui_create_table->tableWidget->setColumnCount(2);
+    QStringList Headers;
+    Headers<<"X axis"<<"Y axis";
+    ui_create_table->tableWidget->setHorizontalHeaderLabels(Headers);
     QObject::connect(ui_create_table->tableWidget,
-                     SIGNAL(cellChanged(int row,int coloumn)),
-                     ui_create_table->tableWidget,
-                     SLOT(insertRow(int row)));
+                     SIGNAL(cellChanged(int ,int)),
+                     this,
+                     SLOT(add_row_to_table(int, int)));
 
     setCentralWidget(Create_table);
+}
+
+void PloteusWindow::add_row_to_table(int row, int)
+{
+    if(row == ui_create_table->tableWidget->rowCount()- 1)
+        ui_create_table->tableWidget->insertRow(row+1);
+
 }
 
 void loadModules(QSplashScreen* psplash)
