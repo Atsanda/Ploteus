@@ -56,7 +56,7 @@ color: rgb(0, 85, 255);
     <string>Please insert data points and choose aproximisation.</string>
    </property>
   </widget>
-  <widget class="QRadioButton" name="radioButton">
+  <widget class="QRadioButton" name="linear">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -74,7 +74,7 @@ selection-color: rgb(0, 0, 255);</string>
     <string>linear aproximation</string>
    </property>
   </widget>
-  <widget class="QRadioButton" name="radioButton_2">
+  <widget class="QRadioButton" name="lagrange">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -92,7 +92,7 @@ selection-color: rgb(0, 0, 255);</string>
     <string>lagrange poly aproximation</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="Aproximate_button">
    <property name="geometry">
     <rect>
      <x>180</x>

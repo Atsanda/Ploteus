@@ -15,10 +15,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         ploteuswindow.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    aproximator.cpp
 
 HEADERS  += ploteuswindow.h \
-    qcustomplot.h
+    qcustomplot.h \
+    aproximator.h
 
 FORMS    += \
     welcome_page.ui \
