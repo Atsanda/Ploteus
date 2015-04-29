@@ -22,7 +22,8 @@ HEADERS  += ploteuswindow.h \
 
 FORMS    += \
     welcome_page.ui \
-    table_chs_pg.ui
+    table_chs_pg.ui \
+    create_table.ui
 
 RESOURCES += \
     resources.qrc
