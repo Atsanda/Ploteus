@@ -30,6 +30,8 @@ public:
     ~PloteusWindow();
     Aproximator *Aproximtr;
     QTableWidget* get_table();
+    bool get_linerian_but_status();
+    bool get_lagrange_but_status();
 
 private:  
     QWidget *Tbl_chs_pg;

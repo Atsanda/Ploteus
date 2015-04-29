@@ -92,6 +92,8 @@ void PloteusWindow::turn_to_plotting_page()
                                      "Warning",
                                      err_msg
                                     );
+        Aproximtr->input_x.clear();
+        Aproximtr->input_y.clear();
         return;
     }
 }
@@ -99,6 +101,16 @@ void PloteusWindow::turn_to_plotting_page()
 QTableWidget* PloteusWindow::get_table()
 {
     return (this->ui_create_table->tableWidget);
+}
+
+bool PloteusWindow::get_linerian_but_status()
+{
+    return this->ui_create_table->linear->isChecked();
+}
+
+bool PloteusWindow::get_lagrange_but_status()
+{
+    return this->ui_create_table->lagrange->isChecked();
 }
 
 
