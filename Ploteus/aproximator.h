@@ -29,8 +29,9 @@ public:
     ~Aproximator(){};
 
     int aprx_type;
-    std::vector<float> input_x;
-    std::vector<float> input_y;
+    QString FILE_NAME;
+    QVector<float> input_x;
+    QVector<float> input_y;
     void borrow_data_from_created_tbl(PloteusWindow*);
 
 };

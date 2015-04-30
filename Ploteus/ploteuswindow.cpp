@@ -4,6 +4,9 @@
 #include "ui_create_table.h"
 #include "ui_add_table.h"
 #include "ui_plotting.h"
+#include "file_reading.h"
+#include "aproximation.h"
+#include <QFileDialog>
 
 PloteusWindow::PloteusWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -68,6 +71,9 @@ void PloteusWindow::load_external_table()
                                                QString::fromUtf8("Открыть файл"),
                                                QDir::homePath(),
                                                "Images (*.txt);;All files (*.*)");
+
+    Aproximtr->FILE_NAME = str;
+
     if (str.isEmpty()){
         return;
     }
@@ -113,14 +119,118 @@ void PloteusWindow::turn_to_plotting_page_from_created_tbl()
     }
 
     setCentralWidget(Plotting_pg);
+    setNewGraph(Aproximtr);
 }
 
 void PloteusWindow::turn_to_plotting_page_from_added_tbl()
 {
+    const char* constchar_FIlE_NAME = Aproximtr->FILE_NAME.toStdString().c_str();
+    cout << constchar_FIlE_NAME << endl;
+    int coord_count = 0;
+    open_file_and_parse(constchar_FIlE_NAME, Aproximtr->input_x, Aproximtr->input_y, coord_count);
 
+        if(get_linerian_but_status_for_add_table())
+        {
+            Aproximtr->aprx_type = LINEAR;
+            cout << "User chose linear aproximation" << endl;
+        } else if (get_lagrange_but_status_for_add_table())
+        {
+            Aproximtr->aprx_type = LAGRANGE;
+            cout << "User chose lagrange aproximation" << endl;
+        }
     setCentralWidget(Plotting_pg);
+    setNewGraph(Aproximtr);
 
 }
+
+void PloteusWindow::setNewGraph(Aproximator *Aproximtr)
+{
+    int n = Aproximtr->input_x.size();
+    lagrange_points lagrange_points;
+    QVector<double> X;
+    QVector<double> Y;
+
+    float min_x = 0.0, min_y = 0.0;
+    float max_x = 0.0, max_y = 0.0;
+
+    float min_xa = 0.0, min_ya = 0.0;
+    float max_xa = 0.0, max_ya = 0.0;
+
+    for(int i = 0; i < n; i++)
+    {
+        X.push_back(Aproximtr->input_x[i]);
+        cout << X[i] << endl;
+        Y.push_back(Aproximtr->input_y[i]);
+        cout << Y[i] << endl;
+    }
+
+    min_x = *std::min_element (X.begin(), X.end());
+    min_y = *std::min_element (Y.begin(), Y.end());
+    max_x = *std::max_element (X.begin(), X.end());
+    max_y = *std::max_element (Y.begin(), Y.end());
+
+    cout << "find elems" << endl;
+
+    cout << min_x << " " << min_y << " " << max_x << " " << max_y << endl;
+
+    QVector<double> Xa;
+    QVector<double> Ya;
+
+    if(Aproximtr->aprx_type == LAGRANGE){
+        lagrange_points = lagrange_poly_aproximation(Aproximtr->input_x, Aproximtr->input_y, 20);
+        for(int i = 0; i < lagrange_points.x_coordinates.size(); i++)
+        {
+            Xa.push_back(lagrange_points.x_coordinates[i]);
+            Ya.push_back(lagrange_points.y_coordinates[i]);
+        }
+    } else if (Aproximtr->aprx_type == LINEAR)
+    {
+        QVector<float> coef_of_linear_aproximation = linear_aproximation(Aproximtr->input_x, Aproximtr->input_y);
+        float DELTA = 0.1;
+        for(min_x; min_x < max_x ; min_x+=DELTA)
+        {
+            Xa.push_back(min_x);
+            Ya.push_back(coef_of_linear_aproximation[0]*min_x + coef_of_linear_aproximation[1]);
+        }
+    }
+
+    min_xa = *std::min_element (Xa.begin(), Xa.end());
+    min_ya = *std::min_element (Ya.begin(), Ya.end());
+    max_xa = *std::max_element (Xa.begin(), Xa.end());
+    max_ya = *std::max_element (Ya.begin(), Ya.end());
+
+
+     ui_plotting_page->Plotting_zone->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
+                                      QCP::iSelectLegend | QCP::iSelectPlottables);
+
+    ui_plotting_page->Plotting_zone->addGraph();
+    ui_plotting_page->Plotting_zone->graph(0)->setData(Xa, Ya);
+    ui_plotting_page->Plotting_zone->graph(0)->setPen(QPen(Qt::yellow));
+    ui_plotting_page->Plotting_zone->graph(0)->setBrush(QBrush(QColor(255, 0, 0, 0)));
+
+    ui_plotting_page->Plotting_zone->addGraph();
+    ui_plotting_page->Plotting_zone->graph(1)->setData(X, Y);
+    ui_plotting_page->Plotting_zone->graph(1)->setPen(QPen(Qt::blue));
+    ui_plotting_page->Plotting_zone->graph(1)->setBrush(QBrush(QColor(0, 0, 255, 0)));
+
+    ui_plotting_page->Plotting_zone->plotLayout()->insertRow(0);
+    ui_plotting_page->Plotting_zone->plotLayout()->addElement(0, 0, new QCPPlotTitle(ui_plotting_page->Plotting_zone, "Plots"));
+    ui_plotting_page->Plotting_zone->legend->setVisible(true);
+    QFont legendFont = font();
+    legendFont.setPointSize(10);
+    ui_plotting_page->Plotting_zone->setFont(legendFont);
+    ui_plotting_page->Plotting_zone->legend->setSelectedFont(legendFont);
+    ui_plotting_page->Plotting_zone->legend->setSelectableParts(QCPLegend::spItems);
+
+
+    ui_plotting_page->Plotting_zone->xAxis->setLabel("x");
+    ui_plotting_page->Plotting_zone->yAxis->setLabel("y");
+
+    ui_plotting_page->Plotting_zone->xAxis->setRange(min_xa-5.0, max_xa+5);
+    ui_plotting_page->Plotting_zone->yAxis->setRange(min_ya-5.0, max_ya+5.0);
+    ui_plotting_page->Plotting_zone->replot();
+}
+
 
 void PloteusWindow::add_table()
 {
@@ -132,15 +242,26 @@ QTableWidget* PloteusWindow::get_table()
     return (this->ui_create_table->tableWidget);
 }
 
-bool PloteusWindow::get_linerian_but_status()
+bool PloteusWindow::get_linerian_but_status_for_create_table()
 {
     return this->ui_create_table->linear->isChecked();
 }
 
-bool PloteusWindow::get_lagrange_but_status()
+bool PloteusWindow::get_lagrange_but_status_for_create_table()
 {
     return this->ui_create_table->lagrange->isChecked();
 }
+
+bool PloteusWindow::get_linerian_but_status_for_add_table()
+{
+    return this->ui_add_table->linear->isChecked();
+}
+
+bool PloteusWindow::get_lagrange_but_status_for_add_table()
+{
+    return this->ui_add_table->lagrange->isChecked();
+}
+
 
 
 void loadModules(QSplashScreen* psplash)
