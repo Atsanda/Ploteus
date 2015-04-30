@@ -26,7 +26,8 @@ FORMS    += \
     welcome_page.ui \
     table_chs_pg.ui \
     create_table.ui \
-    add_table.ui
+    add_table.ui \
+    plotting.ui
 
 RESOURCES += \
     resources.qrc

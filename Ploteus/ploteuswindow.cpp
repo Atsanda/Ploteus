@@ -3,6 +3,7 @@
 #include "ui_table_chs_pg.h"
 #include "ui_create_table.h"
 #include "ui_add_table.h"
+#include "ui_plotting.h"
 
 PloteusWindow::PloteusWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -10,6 +11,8 @@ PloteusWindow::PloteusWindow(QWidget *parent) :
     ui_wel(new Ui::Welcome_Page),
     ui_create_table(new Ui::Create_table),
     ui_add_table(new Ui::Add_table),
+    ui_plotting_page(new Ui::Plotting_page),
+    Plotting_pg(new QWidget),
     Add_table(new QWidget),
     Tbl_chs_pg(new QWidget),
     Welcm_pg(new QWidget),
@@ -31,6 +34,8 @@ PloteusWindow::PloteusWindow(QWidget *parent) :
     ui_create_table->setupUi(Create_table);
 
     ui_add_table->setupUi(Add_table);
+
+    ui_plotting_page->setupUi(Plotting_pg);
 
     QObject::connect(ui_wel->StartButton, SIGNAL(clicked()), this, SLOT(turn_strtpage_to_tbl_chs_pg()) );
     QObject::connect(ui_tbl->Add_tbl, SIGNAL(clicked()), this, SLOT(add_table()));
@@ -66,6 +71,8 @@ void PloteusWindow::load_external_table()
     if (str.isEmpty()){
         return;
     }
+
+    ui_add_table->File_Path->setText(str);
 }
 
 void PloteusWindow::create_table()
@@ -104,10 +111,14 @@ void PloteusWindow::turn_to_plotting_page_from_created_tbl()
         Aproximtr->input_y.clear();
         return;
     }
+
+    setCentralWidget(Plotting_pg);
 }
 
 void PloteusWindow::turn_to_plotting_page_from_added_tbl()
 {
+
+    setCentralWidget(Plotting_pg);
 
 }
 
