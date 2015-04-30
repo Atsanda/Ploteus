@@ -14,6 +14,7 @@ void Aproximator::borrow_data_from_created_tbl(PloteusWindow* pl_win)
     float tmp;
     bool ok;
     int i,j;
+
     for(i=0; i < table->rowCount(); i++)
     {
         node = table->item(i,0);

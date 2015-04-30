@@ -19,6 +19,7 @@ namespace Ui {
 class Table_chs_pg;
 class Welcome_Page;
 class Create_table;
+class Add_table;
 }
 
 class PloteusWindow : public QMainWindow
@@ -37,6 +38,8 @@ private:
     QWidget *Tbl_chs_pg;
     QWidget *Welcm_pg;
     QWidget *Create_table;
+    QWidget *Add_table;
+    Ui::Add_table *ui_add_table;
     Ui::Table_chs_pg *ui_tbl;
     Ui::Welcome_Page *ui_wel;
     Ui::Create_table *ui_create_table;
@@ -46,7 +49,9 @@ public slots:
     void load_external_table();
     void create_table();
     void add_row_to_table(int , int);
-    void turn_to_plotting_page();
+    void turn_to_plotting_page_from_created_tbl();
+    void turn_to_plotting_page_from_added_tbl();
+    void add_table();
 };
 
 

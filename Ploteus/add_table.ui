@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Add_table</class>
+ <widget class="QWidget" name="Add_table">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>851</width>
+    <height>489</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QPushButton" name="Choose_file">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>40</y>
+     <width>111</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Choose file</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Start_aproximate">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>400</y>
+     <width>161</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Aproximate</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="linear">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>160</y>
+     <width>181</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(0, 85, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+selection-color: rgb(0, 0, 255);</string>
+   </property>
+   <property name="text">
+    <string>linear aproximation</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="lagrange">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>190</y>
+     <width>191</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(0, 85, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+selection-color: rgb(0, 0, 255);</string>
+   </property>
+   <property name="text">
+    <string>lagrange poly aproximation</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

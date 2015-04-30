@@ -2,11 +2,15 @@
 #include "ui_welcome_page.h"
 #include "ui_table_chs_pg.h"
 #include "ui_create_table.h"
+#include "ui_add_table.h"
 
 PloteusWindow::PloteusWindow(QWidget *parent) :
     QMainWindow(parent),
     ui_tbl(new Ui::Table_chs_pg),
     ui_wel(new Ui::Welcome_Page),
+    ui_create_table(new Ui::Create_table),
+    ui_add_table(new Ui::Add_table),
+    Add_table(new QWidget),
     Tbl_chs_pg(new QWidget),
     Welcm_pg(new QWidget),
     Create_table(new QWidget),
@@ -26,10 +30,14 @@ PloteusWindow::PloteusWindow(QWidget *parent) :
 
     ui_create_table->setupUi(Create_table);
 
+    ui_add_table->setupUi(Add_table);
+
     QObject::connect(ui_wel->StartButton, SIGNAL(clicked()), this, SLOT(turn_strtpage_to_tbl_chs_pg()) );
-    QObject::connect(ui_tbl->Add_tbl, SIGNAL(clicked()), this, SLOT(load_external_table()));
+    QObject::connect(ui_tbl->Add_tbl, SIGNAL(clicked()), this, SLOT(add_table()));
     QObject::connect(ui_tbl->Create_table, SIGNAL(clicked()), this, SLOT(create_table()));
-    QObject::connect(ui_create_table->Aproximate_button, SIGNAL(clicked()), this, SLOT(turn_to_plotting_page()));
+    QObject::connect(ui_create_table->Aproximate_button, SIGNAL(clicked()), this, SLOT(turn_to_plotting_page_from_created_tbl()));
+    QObject::connect(ui_add_table->Choose_file, SIGNAL(clicked()), this, SLOT(load_external_table()));
+    QObject::connect(ui_add_table->Start_aproximate, SIGNAL(clicked()), this, SLOT(turn_to_plotting_page_from_added_tbl()));
 
 }
 
@@ -83,7 +91,7 @@ void PloteusWindow::add_row_to_table(int row, int)
 
 }
 
-void PloteusWindow::turn_to_plotting_page()
+void PloteusWindow::turn_to_plotting_page_from_created_tbl()
 {
     try{
         Aproximtr->borrow_data_from_created_tbl(this);
@@ -96,6 +104,16 @@ void PloteusWindow::turn_to_plotting_page()
         Aproximtr->input_y.clear();
         return;
     }
+}
+
+void PloteusWindow::turn_to_plotting_page_from_added_tbl()
+{
+
+}
+
+void PloteusWindow::add_table()
+{
+     setCentralWidget(Add_table);
 }
 
 QTableWidget* PloteusWindow::get_table()
