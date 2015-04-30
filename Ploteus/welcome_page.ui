@@ -51,7 +51,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="resources.qrc">:/wel_page/Wel_pg1.png</pixmap>
+        <pixmap>:/wel_page/Wel_pg1.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -98,8 +98,6 @@ font: 20pt &quot;MS Shell Dlg 2&quot;;</string>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

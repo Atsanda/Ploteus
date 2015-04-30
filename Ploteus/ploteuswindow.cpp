@@ -3,7 +3,7 @@
 #include "ui_table_chs_pg.h"
 #include "ui_create_table.h"
 #include "ui_add_table.h"
-#include "ui_plotting.h"
+#include "aproximator.h"
 
 PloteusWindow::PloteusWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,8 +11,6 @@ PloteusWindow::PloteusWindow(QWidget *parent) :
     ui_wel(new Ui::Welcome_Page),
     ui_create_table(new Ui::Create_table),
     ui_add_table(new Ui::Add_table),
-    ui_plotting_page(new Ui::Plotting_page),
-    Plotting_pg(new QWidget),
     Add_table(new QWidget),
     Tbl_chs_pg(new QWidget),
     Welcm_pg(new QWidget),
@@ -34,8 +32,6 @@ PloteusWindow::PloteusWindow(QWidget *parent) :
     ui_create_table->setupUi(Create_table);
 
     ui_add_table->setupUi(Add_table);
-
-    ui_plotting_page->setupUi(Plotting_pg);
 
     QObject::connect(ui_wel->StartButton, SIGNAL(clicked()), this, SLOT(turn_strtpage_to_tbl_chs_pg()) );
     QObject::connect(ui_tbl->Add_tbl, SIGNAL(clicked()), this, SLOT(add_table()));
@@ -68,11 +64,11 @@ void PloteusWindow::load_external_table()
                                                QString::fromUtf8("Открыть файл"),
                                                QDir::homePath(),
                                                "Images (*.txt);;All files (*.*)");
+    Aproximtr->FILE_NAME = str;
+
     if (str.isEmpty()){
         return;
     }
-
-    ui_add_table->File_Path->setText(str);
 }
 
 void PloteusWindow::create_table()
@@ -111,15 +107,24 @@ void PloteusWindow::turn_to_plotting_page_from_created_tbl()
         Aproximtr->input_y.clear();
         return;
     }
-
-    setCentralWidget(Plotting_pg);
 }
 
 void PloteusWindow::turn_to_plotting_page_from_added_tbl()
 {
+    const char* constchar_FIlE_NAME = Aproximtr->FILE_NAME.toStdString().c_str();
+   // cout << constchar_FIlE_NAME << endl;
+    int coord_count = 0;
+    open_file_and_parse(constchar_FIlE_NAME, Aproximtr->input_x, Aproximtr->input_y, coord_count);
 
-    setCentralWidget(Plotting_pg);
-
+    if(get_linerian_but_status_for_add_table())
+    {
+        Aproximtr->aprx_type = LINEAR;
+     //   cout << "User chose linear aproximation" << endl;
+    } else if (get_lagrange_but_status_for_add_table())
+    {
+        Aproximtr->aprx_type = LAGRANGE;
+      //  cout << "User chose lagrange aproximation" << endl;
+    }
 }
 
 void PloteusWindow::add_table()
@@ -132,14 +137,24 @@ QTableWidget* PloteusWindow::get_table()
     return (this->ui_create_table->tableWidget);
 }
 
-bool PloteusWindow::get_linerian_but_status()
+bool PloteusWindow::get_linerian_but_status_for_create_table()
 {
     return this->ui_create_table->linear->isChecked();
 }
 
-bool PloteusWindow::get_lagrange_but_status()
+bool PloteusWindow::get_lagrange_but_status_for_create_table()
 {
     return this->ui_create_table->lagrange->isChecked();
+}
+
+bool PloteusWindow::get_linerian_but_status_for_add_table()
+{
+    return this->ui_add_table->linear->isChecked();
+}
+
+bool PloteusWindow::get_lagrange_but_status_for_add_table()
+{
+    return this->ui_add_table->lagrange->isChecked();
 }
 
 

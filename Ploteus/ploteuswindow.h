@@ -20,7 +20,6 @@ class Table_chs_pg;
 class Welcome_Page;
 class Create_table;
 class Add_table;
-class Plotting_page;
 }
 
 class PloteusWindow : public QMainWindow
@@ -32,20 +31,20 @@ public:
     ~PloteusWindow();
     Aproximator *Aproximtr;
     QTableWidget* get_table();
-    bool get_linerian_but_status();
-    bool get_lagrange_but_status();
+    bool get_linerian_but_status_for_create_table();
+    bool get_lagrange_but_status_for_create_table();
+    bool get_linerian_but_status_for_add_table();
+    bool get_lagrange_but_status_for_add_table();
 
 private:  
     QWidget *Tbl_chs_pg;
     QWidget *Welcm_pg;
     QWidget *Create_table;
     QWidget *Add_table;
-    QWidget *Plotting_pg;
     Ui::Add_table *ui_add_table;
     Ui::Table_chs_pg *ui_tbl;
     Ui::Welcome_Page *ui_wel;
     Ui::Create_table *ui_create_table;
-    Ui::Plotting_page *ui_plotting_page;
 
 public slots:
     void turn_strtpage_to_tbl_chs_pg();

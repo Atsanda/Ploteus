@@ -16,16 +16,11 @@
   <widget class="QPushButton" name="Choose_file">
    <property name="geometry">
     <rect>
-     <x>584</x>
-     <y>50</y>
-     <width>191</width>
-     <height>41</height>
+     <x>360</x>
+     <y>40</y>
+     <width>111</width>
+     <height>51</height>
     </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-image: url(:/window/Button.png);
-color: rgb(0, 85, 255);
-font: 15pt &quot;MS Shell Dlg 2&quot;;</string>
    </property>
    <property name="text">
     <string>Choose file</string>
@@ -34,16 +29,11 @@ font: 15pt &quot;MS Shell Dlg 2&quot;;</string>
   <widget class="QPushButton" name="Start_aproximate">
    <property name="geometry">
     <rect>
-     <x>290</x>
+     <x>350</x>
      <y>400</y>
-     <width>211</width>
+     <width>161</width>
      <height>51</height>
     </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-image: url(:/window/Button.png);
-color: rgb(0, 85, 255);
-font: 15pt &quot;MS Shell Dlg 2&quot;;</string>
    </property>
    <property name="text">
     <string>Aproximate</string>
@@ -52,8 +42,8 @@ font: 15pt &quot;MS Shell Dlg 2&quot;;</string>
   <widget class="QRadioButton" name="linear">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>180</y>
+     <x>30</x>
+     <y>160</y>
      <width>181</width>
      <height>31</height>
     </rect>
@@ -70,8 +60,8 @@ selection-color: rgb(0, 0, 255);</string>
   <widget class="QRadioButton" name="lagrange">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>210</y>
+     <x>30</x>
+     <y>190</y>
      <width>191</width>
      <height>17</height>
     </rect>
@@ -83,43 +73,6 @@ selection-color: rgb(0, 0, 255);</string>
    </property>
    <property name="text">
     <string>lagrange poly aproximation</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="File_Path">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>50</y>
-     <width>551</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>130</y>
-     <width>281</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 75 12pt &quot;Arial&quot;;
-color: rgb(0, 85, 255);
-</string>
-   </property>
-   <property name="text">
-    <string>Please choose aproximisation:</string>
    </property>
   </widget>
  </widget>

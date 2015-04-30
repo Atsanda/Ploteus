@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2015-04-12T11:15:46
+# Project created by QtCreator 2015-04-30T14:15:35
 #
 #-------------------------------------------------
 
@@ -13,23 +13,33 @@ TARGET = Ploteus
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        ploteuswindow.cpp \
+SOURCES +=\
+    aproximation.cpp \
+    aproximator.cpp \
+    file_reading.cpp \
+    ploteuswindow.cpp \
     qcustomplot.cpp \
-    aproximator.cpp
+    main.cpp
 
-HEADERS  += ploteuswindow.h \
-    qcustomplot.h \
-    aproximator.h
+HEADERS  += \
+    aproximation.h \
+    aproximator.h \
+    file_reading.h \
+    ploteuswindow.h \
+    qcustomplot.h
 
-FORMS    += \
-    welcome_page.ui \
-    table_chs_pg.ui \
-    create_table.ui \
+FORMS    += mainwindow.ui \
     add_table.ui \
-    plotting.ui
+    create_table.ui \
+    ploteuswindow.ui \
+    table_chs_pg.ui \
+    welcome_page.ui
 
 RESOURCES += \
     resources.qrc
 
-DISTFILES +=
+DISTFILES += \
+    splash.jpg \
+    Button.png \
+    icon.png \
+    Wel_pg1.png
