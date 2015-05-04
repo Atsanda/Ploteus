@@ -12,7 +12,7 @@
 #include <QDebug>
 #include "qcustomplot.h"
 #include "aproximator.h"
-
+#include <QTableWidget>
 class Aproximator;
 
 namespace Ui {
@@ -32,8 +32,11 @@ public:
     ~PloteusWindow();
     Aproximator *Aproximtr;
     QTableWidget* get_table();
-    bool get_linerian_but_status();
-    bool get_lagrange_but_status();
+    bool get_linerian_but_status_for_create_table();
+    bool get_lagrange_but_status_for_create_table();
+    bool get_linerian_but_status_for_add_table();
+    bool get_lagrange_but_status_for_add_table();
+    void setNewGraph(Aproximator *Aproximtr);
 
 private:  
     QWidget *Tbl_chs_pg;
@@ -46,6 +49,7 @@ private:
     Ui::Welcome_Page *ui_wel;
     Ui::Create_table *ui_create_table;
     Ui::Plotting_page *ui_plotting_page;
+
 
 public slots:
     void turn_strtpage_to_tbl_chs_pg();

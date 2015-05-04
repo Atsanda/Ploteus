@@ -58,9 +58,9 @@ void Aproximator::borrow_data_from_created_tbl(PloteusWindow* pl_win)
     if( i != j )
         throw QString("Invalid format");
 
-    if( pl_win->get_linerian_but_status())
+    if( pl_win->get_linerian_but_status_for_create_table())
         aprx_type = LINEAR ;
-    else if( pl_win->get_lagrange_but_status())
+    else if( pl_win->get_lagrange_but_status_for_create_table())
         aprx_type = LAGRANGE ;
     else
         throw QString("Choose aproximation");
