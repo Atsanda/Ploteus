@@ -46,6 +46,7 @@ PloteusWindow::PloteusWindow(QWidget *parent) :
     QObject::connect(ui_create_table->Aproximate_button, SIGNAL(clicked()), this, SLOT(turn_to_plotting_page_from_created_tbl()));
     QObject::connect(ui_add_table->Choose_file, SIGNAL(clicked()), this, SLOT(load_external_table()));
     QObject::connect(ui_add_table->Start_aproximate, SIGNAL(clicked()), this, SLOT(turn_to_plotting_page_from_added_tbl()));
+    QObject::connect(ui_plotting_page->Save_as_pdf, SIGNAL(clicked()), this, SLOT(save_as_pdf()));
 
 }
 
@@ -205,7 +206,7 @@ void PloteusWindow::setNewGraph(Aproximator *Aproximtr)
 
     ui_plotting_page->Plotting_zone->addGraph();
     ui_plotting_page->Plotting_zone->graph(0)->setData(Xa, Ya);
-    ui_plotting_page->Plotting_zone->graph(0)->setPen(QPen(Qt::yellow));
+    ui_plotting_page->Plotting_zone->graph(0)->setPen(QPen(Qt::red));
     ui_plotting_page->Plotting_zone->graph(0)->setBrush(QBrush(QColor(255, 0, 0, 0)));
 
     ui_plotting_page->Plotting_zone->addGraph();
@@ -229,6 +230,25 @@ void PloteusWindow::setNewGraph(Aproximator *Aproximtr)
     ui_plotting_page->Plotting_zone->xAxis->setRange(min_xa-5.0, max_xa+5);
     ui_plotting_page->Plotting_zone->yAxis->setRange(min_ya-5.0, max_ya+5.0);
     ui_plotting_page->Plotting_zone->replot();
+
+
+}
+
+void PloteusWindow::save_as_pdf()
+{
+    QString str =
+            QFileDialog::getSaveFileName(0,
+                                         "Save as PDF",
+                                         "/home/untitled.pdf",
+                                         "*.pdf");
+    if (!str.isEmpty())
+    {
+        if(!ui_plotting_page->Plotting_zone->savePdf(str))
+            QMessageBox::warning(this,
+                                         "Warning",
+                                         "Can not be saved."
+                                        );
+    }
 }
 
 

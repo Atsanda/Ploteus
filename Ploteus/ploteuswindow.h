@@ -59,6 +59,7 @@ public slots:
     void turn_to_plotting_page_from_created_tbl();
     void turn_to_plotting_page_from_added_tbl();
     void add_table();
+    void save_as_pdf();
 };
 
 
