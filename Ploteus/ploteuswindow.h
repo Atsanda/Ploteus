@@ -13,6 +13,8 @@
 #include "qcustomplot.h"
 #include "aproximator.h"
 #include <QTableWidget>
+#include <QTableWidgetItem>
+#include <QBrush>
 class Aproximator;
 
 namespace Ui {
@@ -37,13 +39,15 @@ public:
     bool get_linerian_but_status_for_add_table();
     bool get_lagrange_but_status_for_add_table();
     void setNewGraph(Aproximator *Aproximtr);
+    QWidget *Plotting_pg; //bad desition
+    QWidget *Create_table;
 
 private:  
     QWidget *Tbl_chs_pg;
     QWidget *Welcm_pg;
-    QWidget *Create_table;
+    //QWidget *Create_table;
     QWidget *Add_table;
-    QWidget *Plotting_pg;
+    //QWidget *Plotting_pg;
     Ui::Add_table *ui_add_table;
     Ui::Table_chs_pg *ui_tbl;
     Ui::Welcome_Page *ui_wel;
@@ -60,6 +64,7 @@ public slots:
     void turn_to_plotting_page_from_added_tbl();
     void add_table();
     void save_as_pdf();
+    void back_to_table();
 };
 
 

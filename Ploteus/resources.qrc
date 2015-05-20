@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/wel_page">
         <file>Wel_pg1.png</file>
+        <file>Line.png</file>
+        <file>background.jpg</file>
     </qresource>
     <qresource prefix="/window">
         <file>icon.png</file>

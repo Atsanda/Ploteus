@@ -47,6 +47,11 @@ PloteusWindow::PloteusWindow(QWidget *parent) :
     QObject::connect(ui_add_table->Choose_file, SIGNAL(clicked()), this, SLOT(load_external_table()));
     QObject::connect(ui_add_table->Start_aproximate, SIGNAL(clicked()), this, SLOT(turn_to_plotting_page_from_added_tbl()));
     QObject::connect(ui_plotting_page->Save_as_pdf, SIGNAL(clicked()), this, SLOT(save_as_pdf()));
+    QObject::connect(ui_plotting_page->Back_to_table, SIGNAL(clicked()), this, SLOT(back_to_table()));
+    QObject::connect(ui_create_table->tableWidget,
+                     SIGNAL(cellChanged(int ,int)),
+                     this,
+                     SLOT(add_row_to_table(int, int)));
 
 }
 
@@ -59,6 +64,7 @@ PloteusWindow::~PloteusWindow()
     delete Welcm_pg;
     delete Create_table;
     delete Aproximtr;
+    delete Plotting_pg;
 }
 
 void PloteusWindow::turn_strtpage_to_tbl_chs_pg()
@@ -86,14 +92,11 @@ void PloteusWindow::create_table()
 {
     ui_create_table->tableWidget->setRowCount(10);
     ui_create_table->tableWidget->setColumnCount(2);
+
+
     QStringList Headers;
     Headers<<"X axis"<<"Y axis";
     ui_create_table->tableWidget->setHorizontalHeaderLabels(Headers);
-
-    QObject::connect(ui_create_table->tableWidget,
-                     SIGNAL(cellChanged(int ,int)),
-                     this,
-                     SLOT(add_row_to_table(int, int)));
 
     setCentralWidget(Create_table);
 }
@@ -101,7 +104,9 @@ void PloteusWindow::create_table()
 void PloteusWindow::add_row_to_table(int row, int)
 {
     if(row == ui_create_table->tableWidget->rowCount()- 1)
+    {
         ui_create_table->tableWidget->insertRow(row+1);
+    }
 
 }
 
@@ -118,9 +123,44 @@ void PloteusWindow::turn_to_plotting_page_from_created_tbl()
         Aproximtr->input_y.clear();
         return;
     }
-
     setCentralWidget(Plotting_pg);
     setNewGraph(Aproximtr);
+}
+
+void PloteusWindow::back_to_table()
+{
+
+    Create_table = new QWidget(this);
+    ui_create_table->setupUi(Create_table);
+    QObject::connect(ui_create_table->Aproximate_button, SIGNAL(clicked()), this, SLOT(turn_to_plotting_page_from_created_tbl()));
+    Plotting_pg = new QWidget(this);
+    ui_plotting_page->setupUi(Plotting_pg);
+    QObject::connect(ui_plotting_page->Save_as_pdf, SIGNAL(clicked()), this, SLOT(save_as_pdf()));
+    QObject::connect(ui_plotting_page->Back_to_table, SIGNAL(clicked()), this, SLOT(back_to_table()));
+
+    if(ui_create_table->tableWidget->rowCount() == 0){
+
+    if(Aproximtr->input_x.count() > 10)
+        ui_create_table->tableWidget->setRowCount(Aproximtr->input_x.count());
+
+        ui_create_table->tableWidget->setRowCount(10);
+        ui_create_table->tableWidget->setColumnCount(2);
+
+        for(int i=0;i<Aproximtr->input_x.count();i++)
+        {
+            ui_create_table->tableWidget->setItem(i,0,new QTableWidgetItem(QString::number(Aproximtr->input_x[i])));
+            ui_create_table->tableWidget->setItem(i,1,new QTableWidgetItem(QString::number(Aproximtr->input_y[i])));
+        }
+
+        QStringList Headers;
+        Headers<<"X axis"<<"Y axis";
+        ui_create_table->tableWidget->setHorizontalHeaderLabels(Headers);
+    }
+
+    Aproximtr->input_x.clear();
+    Aproximtr->input_y.clear();
+
+    setCentralWidget(Create_table);
 }
 
 void PloteusWindow::turn_to_plotting_page_from_added_tbl()
@@ -128,17 +168,36 @@ void PloteusWindow::turn_to_plotting_page_from_added_tbl()
     const char* constchar_FIlE_NAME = Aproximtr->FILE_NAME.toStdString().c_str();
     cout << constchar_FIlE_NAME << endl;
     int coord_count = 0;
+
+    try{
     open_file_and_parse(constchar_FIlE_NAME, Aproximtr->input_x, Aproximtr->input_y, coord_count);
+    }catch(QString err_msg){
+        QMessageBox::warning(this,
+                             "Warning",
+                             err_msg
+                             );
+         Aproximtr->input_x.clear();
+         Aproximtr->input_y.clear();
+         return;
+    }
 
         if(get_linerian_but_status_for_add_table())
         {
             Aproximtr->aprx_type = LINEAR;
-            cout << "User chose linear aproximation" << endl;
         } else if (get_lagrange_but_status_for_add_table())
         {
             Aproximtr->aprx_type = LAGRANGE;
-            cout << "User chose lagrange aproximation" << endl;
         }
+        else
+        {
+            QMessageBox::warning(this,
+                                 "Warning",
+                                 "Choose aproximation, please!"
+                                 );
+             return;
+
+        }
+
     setCentralWidget(Plotting_pg);
     setNewGraph(Aproximtr);
 
@@ -211,8 +270,11 @@ void PloteusWindow::setNewGraph(Aproximator *Aproximtr)
 
     ui_plotting_page->Plotting_zone->addGraph();
     ui_plotting_page->Plotting_zone->graph(1)->setData(X, Y);
+    ui_plotting_page->Plotting_zone->graph(1)->setLineStyle(QCPGraph::lsNone);
+    ui_plotting_page->Plotting_zone->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 4));
     ui_plotting_page->Plotting_zone->graph(1)->setPen(QPen(Qt::blue));
     ui_plotting_page->Plotting_zone->graph(1)->setBrush(QBrush(QColor(0, 0, 255, 0)));
+    ui_plotting_page->Plotting_zone->graph(1)->setName("Initial data");
 
     ui_plotting_page->Plotting_zone->plotLayout()->insertRow(0);
     ui_plotting_page->Plotting_zone->plotLayout()->addElement(0, 0, new QCPPlotTitle(ui_plotting_page->Plotting_zone, "Plots"));

@@ -34,7 +34,6 @@ void Aproximator::borrow_data_from_created_tbl(PloteusWindow* pl_win)
 
         input_x.push_back(tmp);
     }
-
     for(j=0; j < table->rowCount(); j++)
     {
         node = table->item(j,1);
