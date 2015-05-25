@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>835</width>
-    <height>495</height>
+    <height>501</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -70,13 +70,13 @@ color: rgb(0, 85, 255);
        </property>
        <property name="minimumSize">
         <size>
-         <width>222</width>
+         <width>225</width>
          <height>431</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>222</width>
+         <width>225</width>
          <height>431</height>
         </size>
        </property>

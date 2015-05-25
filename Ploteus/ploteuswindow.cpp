@@ -153,7 +153,7 @@ void PloteusWindow::back_to_table()
         }
 
         QStringList Headers;
-        Headers<<"X axis"<<"Y axis";
+        Headers << "X axis" << "Y axis";
         ui_create_table->tableWidget->setHorizontalHeaderLabels(Headers);
     }
 
@@ -187,6 +187,13 @@ void PloteusWindow::turn_to_plotting_page_from_added_tbl()
         } else if (get_lagrange_but_status_for_add_table())
         {
             Aproximtr->aprx_type = LAGRANGE;
+            if(Aproximtr->input_x.size()<3){
+                QMessageBox::warning(this,
+                                     "Warning",
+                                     "Put more points, please!"
+                                     );
+                return;
+            }
         }
         else
         {
@@ -219,9 +226,7 @@ void PloteusWindow::setNewGraph(Aproximator *Aproximtr)
     for(int i = 0; i < n; i++)
     {
         X.push_back(Aproximtr->input_x[i]);
-        cout << X[i] << endl;
         Y.push_back(Aproximtr->input_y[i]);
-        cout << Y[i] << endl;
     }
 
     min_x = *std::min_element (X.begin(), X.end());
@@ -229,12 +234,10 @@ void PloteusWindow::setNewGraph(Aproximator *Aproximtr)
     max_x = *std::max_element (X.begin(), X.end());
     max_y = *std::max_element (Y.begin(), Y.end());
 
-    cout << "find elems" << endl;
-
-    cout << min_x << " " << min_y << " " << max_x << " " << max_y << endl;
-
     QVector<double> Xa;
     QVector<double> Ya;
+
+    double coef_a, coef_b, coef_sigma;
 
     if(Aproximtr->aprx_type == LAGRANGE){
         lagrange_points = lagrange_poly_aproximation(Aproximtr->input_x, Aproximtr->input_y, 20);
@@ -252,6 +255,10 @@ void PloteusWindow::setNewGraph(Aproximator *Aproximtr)
             Xa.push_back(min_x);
             Ya.push_back(coef_of_linear_aproximation[0]*min_x + coef_of_linear_aproximation[1]);
         }
+
+        coef_a = coef_of_linear_aproximation[0];
+        coef_b = coef_of_linear_aproximation[1];
+        coef_sigma = coef_of_linear_aproximation[2];
     }
 
     min_xa = *std::min_element (Xa.begin(), Xa.end());
@@ -259,14 +266,31 @@ void PloteusWindow::setNewGraph(Aproximator *Aproximtr)
     max_xa = *std::max_element (Xa.begin(), Xa.end());
     max_ya = *std::max_element (Ya.begin(), Ya.end());
 
+    if(Aproximtr->aprx_type == LINEAR){
+        ui_plotting_page->label_a_name->setText("Коэффициент a:");
+        ui_plotting_page->label_b_name->setText("Коэффициент b:");
+        ui_plotting_page->label_sigma_name->setText("Погрешность МНК:");
+        ui_plotting_page->label_a->setNum(coef_a);
+        ui_plotting_page->label_b->setNum(coef_b);
+        ui_plotting_page->label_sigma->setNum(coef_sigma);
+    } else {
 
-     ui_plotting_page->Plotting_zone->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
+        //ui_plotting_page->label_a_name->setText(" ");
+        //ui_plotting_page->label_b_name->setText(" ");
+       // ui_plotting_page->label_sigma_name->setText("Погрешность МНК:");
+        //ui_plotting_page->label_a->setNum(coef_a);
+        //ui_plotting_page->label_b->setNum(coef_b);
+        //ui_plotting_page->label_sigma->setNum(coef_sigma);
+    }
+
+    ui_plotting_page->Plotting_zone->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
                                       QCP::iSelectLegend | QCP::iSelectPlottables);
 
     ui_plotting_page->Plotting_zone->addGraph();
     ui_plotting_page->Plotting_zone->graph(0)->setData(Xa, Ya);
     ui_plotting_page->Plotting_zone->graph(0)->setPen(QPen(Qt::red));
     ui_plotting_page->Plotting_zone->graph(0)->setBrush(QBrush(QColor(255, 0, 0, 0)));
+    ui_plotting_page->Plotting_zone->graph(0)->setName("Interpolated line");
 
     ui_plotting_page->Plotting_zone->addGraph();
     ui_plotting_page->Plotting_zone->graph(1)->setData(X, Y);

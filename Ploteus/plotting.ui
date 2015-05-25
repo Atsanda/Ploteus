@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>835</width>
-    <height>495</height>
+    <width>838</width>
+    <height>497</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,12 +43,82 @@
          <height>451</height>
         </size>
        </property>
-       <zorder>Save_as_pdf</zorder>
-       <zorder>Back_to_table</zorder>
       </widget>
      </item>
      <item row="0" column="1">
       <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="label_a_name">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 85, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+selection-color: rgb(0, 0, 255);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_a">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 85, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+selection-color: rgb(0, 0, 255);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_b_name">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 85, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+selection-color: rgb(0, 0, 255);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_b">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 85, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+selection-color: rgb(0, 0, 255);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_sigma_name">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 85, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+selection-color: rgb(0, 0, 255);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_sigma">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 85, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+selection-color: rgb(0, 0, 255);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
        <item>
         <spacer name="verticalSpacer_3">
          <property name="orientation">

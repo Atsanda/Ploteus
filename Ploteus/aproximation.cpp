@@ -33,6 +33,16 @@ QVector<float> linear_aproximation(QVector<float> list_of_x, QVector<float> list
 	coefficient_of_linear_aproximation.push_back((n*sum_xy - sum_x*sum_y) / (n*sum_xx - sum_x*sum_x));
 	coefficient_of_linear_aproximation.push_back((sum_y - coefficient_of_linear_aproximation[0] * sum_x) / float(n));
 
+    double sigma = 0.0;
+
+    for(int i = 0; i< list_of_x.size(); i++)
+    {
+        double tmp = (list_of_y[i]-(coefficient_of_linear_aproximation[0]*list_of_x[i]+coefficient_of_linear_aproximation[1]));
+        sigma += tmp*tmp;
+    }
+
+    coefficient_of_linear_aproximation.push_back(sigma);
+
 	return coefficient_of_linear_aproximation;
 
 }

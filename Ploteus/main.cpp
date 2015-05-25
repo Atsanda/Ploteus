@@ -10,9 +10,9 @@ int main(int argc, char *argv[])
 
     QSplashScreen splash(QPixmap(":/window/splash.jpg"));
 
-    /*splash.show();
+    splash.show();
     loadModules(&splash);
-    splash.finish(&w);*/
+    splash.finish(&w);
 
     w.show();
 
